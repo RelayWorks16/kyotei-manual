@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>競艇マーチン 操作マニュアル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap">
+
+<style>
+  :root {
+    --paper: #fbfaf7;
+    --surface: #ffffff;
+    --surface-2: #f3f1ec;
+    --ink: #2b2824;
+    --ink-soft: #6b6459;
+    --ink-faint: #9a9388;
+    --line: #eae5db;
+    --line-strong: #d9d2c4;
+    --accent: #1d5fa6;
+    --accent-soft: #e9f1f8;
+    --action: #b9681f;
+    --action-soft: #f6ecdf;
+    --good: #2f7d4f;
+    --good-soft: #e7f2eb;
+    --bad: #b23b32;
+    --bad-soft: #f8ece9;
+    --warn-soft: #f6efdc;
+    --warn-ink: #7a5c1e;
+    --shadow: 0 1px 2px rgba(64, 54, 38, .05), 0 10px 26px -14px rgba(64, 54, 38, .16);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px 110px; }
+
+  /* ---------- header ---------- */
+  header {
+    padding: 60px 0 32px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 4px 13px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 900;
+    font-size: clamp(27px, 6.5vw, 38px);
+    line-height: 1.28;
+    letter-spacing: .01em;
+    margin: 18px 0 14px;
+    text-wrap: balance;
+  }
+  .lede { font-size: 16px; color: var(--ink-soft); max-width: 40em; }
+  .meta {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    font-size: 13px;
+  }
+  .meta span {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 13px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- toc ---------- */
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow);
+  }
+  nav.toc p {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  nav.toc ol { list-style: none; display: grid; gap: 8px; grid-template-columns: 1fr; }
+  @media (min-width: 620px) { nav.toc ol { grid-template-columns: 1fr 1fr; column-gap: 28px; } }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 3px 0;
+  }
+  nav.toc a:hover { color: var(--accent); }
+  nav.toc a b {
+    font-family: "Roboto Mono", monospace;
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 12px;
+    min-width: 20px;
+  }
+
+  /* ---------- sections ---------- */
+  section { margin-bottom: 62px; scroll-margin-top: 24px; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 900;
+    font-size: 23px;
+    letter-spacing: .01em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-wrap: balance;
+  }
+  h2 .num {
+    font-family: "Roboto Mono", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+  }
+  .section-note { color: var(--ink-soft); margin-bottom: 28px; max-width: 42em; }
+
+  h3 {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 8px;
+    text-wrap: balance;
+  }
+  p + p { margin-top: 12px; }
+  .body-narrow { max-width: 42em; }
+
+  strong { font-weight: 700; }
+  code, .mono {
+    font-family: "Roboto Mono", monospace;
+    font-size: .86em;
+    background: var(--surface-2);
+    border-radius: 5px;
+    padding: 1px 6px;
+    color: var(--ink);
+  }
+
+  /* ---------- step layout ---------- */
+  .step {
+    display: grid;
+    gap: 24px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 700px) {
+    .step { grid-template-columns: 1fr 240px; align-items: start; }
+    .step .phone-col { grid-row: span 2; position: sticky; top: 20px; }
+  }
+  .step-head { display: flex; align-items: baseline; gap: 12px; }
+  .step-head .n {
+    font-family: "Roboto Mono", monospace;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .step ul { margin: 12px 0 0; padding-left: 22px; }
+  .step li { margin-bottom: 8px; }
+  .step li::marker { color: var(--accent); }
+
+  /* ---------- phone mockup ---------- */
+  .phone {
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    background: var(--surface-2);
+    padding: 12px 10px 15px;
+    box-shadow: var(--shadow);
+    font-size: 11.5px;
+    line-height: 1.55;
+  }
+  .phone .bar {
+    text-align: center;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--ink-soft);
+    padding-bottom: 9px;
+  }
+  .phone .tabs { display: flex; gap: 4px; margin-bottom: 9px; }
+  .phone .tabs span {
+    flex: 1;
+    text-align: center;
+    padding: 5px 2px;
+    border-radius: 7px;
+    background: var(--surface);
+    color: var(--ink-faint);
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .phone .tabs span.on { background: var(--accent); color: #fff; }
+  .phone .m-card {
+    background: var(--surface);
+    border-radius: 11px;
+    padding: 10px 11px;
+    border: 1px solid var(--line);
+  }
+  .phone .m-card + .m-card { margin-top: 8px; }
+  .phone h4 {
+    font-size: 10px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .phone .fld {
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    padding: 6px 9px;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .phone .fld.val { color: var(--ink); font-weight: 500; }
+  .phone .row2 { display: flex; gap: 6px; }
+  .phone .row2 > * { flex: 1; }
+  .phone .btn {
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .phone .btn.action { background: var(--action); }
+  .phone .btn.ghost { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line-strong); }
+  .phone .kv { display: flex; justify-content: space-between; padding: 2px 0; }
+  .phone .pos { color: var(--good); }
+  .phone .neg { color: var(--bad); }
+  .phone .pill {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-size: 9.5px;
+    font-weight: 700;
+  }
+  .phone .pill.bkt { background: var(--accent-soft); color: var(--accent); }
+  .phone .prow { display: flex; align-items: center; gap: 7px; margin: 5px 0 2px; }
+  .phone .prow .id { font-weight: 700; font-size: 12px; }
+  .phone .prow .cmb {
+    border: 1px solid var(--line-strong);
+    border-radius: 5px;
+    padding: 3px 8px;
+    font-family: "Roboto Mono", monospace;
+    font-weight: 500;
+  }
+  .phone .prow .od { font-weight: 700; margin-left: auto; }
+  .phone .bang {
+    background: var(--bad-soft);
+    color: var(--bad);
+    border-radius: 8px;
+    padding: 7px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 10px;
+  }
+  .phone .src { color: var(--ink-faint); font-size: 9.5px; margin-bottom: 6px; }
+  .phone table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+  .phone th, .phone td { padding: 3px 2px; text-align: center; border-bottom: 1px solid var(--line); }
+  .phone th { color: var(--ink-faint); font-weight: 700; }
+  .cap {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 10px;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ---------- callouts ---------- */
+  .callout {
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin: 20px 0;
+    font-size: 14px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .callout.tip { background: var(--accent-soft); border-color: transparent; }
+  .callout.warn { background: var(--warn-soft); color: var(--warn-ink); border-color: transparent; }
+  .callout.do { background: var(--surface-2); border-left: 3px solid var(--accent); }
+  .callout b { font-weight: 700; }
+  .callout .label {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+    opacity: .8;
+  }
+
+  /* ---------- reference cards & tables ---------- */
+  .grid2 { display: grid; gap: 16px; }
+  @media (min-width: 620px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+  .rcard {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+  }
+  .rcard h3 { margin-bottom: 10px; }
+
+  table.ref {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  table.ref th, table.ref td {
+    text-align: left;
+    padding: 10px 13px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.ref thead th {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    border-bottom: 1.5px solid var(--line-strong);
+  }
+  table.ref td.n, table.ref th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .scroll-x { overflow-x: auto; }
+
+  .ladder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 14px 0;
+    font-family: "Roboto Mono", monospace;
+    font-size: 13px;
+  }
+  .ladder span {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    padding: 4px 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ladder span:last-child { border-color: var(--bad); color: var(--bad); }
+
+  /* ---------- faq ---------- */
+  details {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 2px 20px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow);
+  }
+  details summary {
+    cursor: pointer;
+    font-weight: 700;
+    padding: 15px 0;
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "＋";
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  details[open] summary::before { content: "−"; }
+  details .ans { padding: 0 0 18px 26px; color: var(--ink-soft); font-size: 14px; }
+
+  /* ---------- admin steps ---------- */
+  ol.plain { padding-left: 24px; }
+  ol.plain li { margin-bottom: 11px; }
+  ol.plain li::marker { font-family: "Roboto Mono", monospace; color: var(--accent); }
+
+  a { color: var(--accent); }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  hr { border: 0; border-top: 1px solid var(--line-strong); margin: 44px 0; }
+
+  footer {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 26px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <span class="kicker">チーム用ドキュメント</span>
+    <h1>競艇マーチン 判定・管理<br>操作マニュアル</h1>
+    <p class="lede">決めたルールで2連単の買い目を出し、周回（セッション）ごとに準備金と掛け金を管理する、スマホ用ウェブアプリの使い方。チーム全員がこれを見れば1日を回せます。</p>
+    <div class="meta">
+      <span>対象 ── チーム全員</span>
+      <span>端末 ── スマホ（ホーム画面に追加推奨）</span>
+      <span>タブ ── 判定 / 収支 / 結果入力</span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <p>もくじ</p>
+    <ol>
+      <li><a href="#overview"><b>00</b>まず全体像</a></li>
+      <li><a href="#s1"><b>01</b>周回を開始する</a></li>
+      <li><a href="#s2"><b>02</b>レースを判定する</a></li>
+      <li><a href="#s3"><b>03</b>買い目を記録する</a></li>
+      <li><a href="#s4"><b>04</b>結果を反映する</a></li>
+      <li><a href="#s5"><b>05</b>収支を読む</a></li>
+      <li><a href="#s6"><b>06</b>+5%到達 / 2周目</a></li>
+      <li><a href="#rules"><b>07</b>買い方のルール</a></li>
+      <li><a href="#money"><b>08</b>資金管理の仕組み</a></li>
+      <li><a href="#faq"><b>09</b>困ったとき</a></li>
+      <li><a href="#admin"><b>10</b>管理者向けセットアップ</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section id="overview">
+    <h2><span class="num">00</span>まず全体像</h2>
+    <p class="section-note">アプリは3タブ。1日の作業は「周回を開始 → レースごとに判定して記録 → レース後に結果を反映」の繰り返しで、確定利益が準備金合計の <strong>+5%</strong> に届いたらその周は終了です。</p>
+
+    <div class="grid2">
+      <div class="rcard">
+        <h3>3つのタブ</h3>
+        <table class="ref">
+          <tr><td><strong>判定</strong></td><td>レースを選んで買い目を出す・記録する</td></tr>
+          <tr><td><strong>収支</strong></td><td>1〜4レーンの掛け金と収支、本日の明細、通算</td></tr>
+          <tr><td><strong>結果入力</strong></td><td>レース後、結果を反映して台帳を動かす</td></tr>
+        </table>
+        <p style="font-size:13px;color:var(--ink-soft);margin-top:10px">画面いちばん上の <strong>本日のセッション</strong> 欄は全タブ共通。ここで周回の開始・終了・準備金修正をします。</p>
+      </div>
+      <div class="rcard">
+        <h3>1日の流れ</h3>
+        <ol class="plain" style="font-size:14px">
+          <li>朝いちばん ── <strong>準備金を入れて周回を開始</strong></li>
+          <li>各レースの締切2分前 ── <strong>取得して判定</strong></li>
+          <li>大前提OK（1番人気＞3.0倍・風速＜6m）なら買い目を確認して <strong>記録</strong></li>
+          <li>レースが終わったら <strong>結果入力</strong> で反映</li>
+          <li>2〜4を繰り返す</li>
+          <li><strong>+5%</strong> に届いたら本日終了（or 2周目）</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <span class="label">ホーム画面に追加</span>
+      URLはブラウザで開き、共有メニュー →「ホーム画面に追加」。アプリのように開けます。<b>画面を下に引っ張ると更新</b>できます（右上の <span class="mono">🔄</span> でも可）。
+    </div>
+  </section>
+
+  <!-- ============ STEP 1 ============ -->
+  <section id="s1">
+    <h2><span class="num">01</span>周回を開始する</h2>
+    <p class="section-note">「周回」＝1セッション。1〜4レーンそれぞれに準備金を割り当てて始めます。基本は4つとも同額（1つ入力すれば4等分）。金額は日によって変えてかまいません。</p>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">1.1</span><h3>準備金を入れて開始</h3></div>
+        <ul>
+          <li>アプリを開くと、上の <strong>本日のセッション</strong> 欄に入力フォームが出ます。</li>
+          <li><strong>準備金（1レーンあたり）</strong> に金額を入力（例 50万 → 1〜4レーン 各50万・合計200万）。</li>
+          <li>レーンごとに金額を変えたいときは「個別に指定」。</li>
+          <li>日付を確認して <strong>この準備金で開始</strong>。</li>
+        </ul>
+        <div class="callout do">
+          <span class="label">こうなる</span>
+          周回が始まり、1〜4レーンの掛け金がすべて <b>¥1,000</b> にセットされます。目標は <b>準備金合計 × +5%</b>（200万なら +10万 = 210万）。
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="m-card">
+            <h4>本日のセッション</h4>
+            <div style="color:var(--ink-faint);margin-bottom:6px">周回が始まっていません</div>
+            <div style="font-size:9.5px;color:var(--ink-faint)">準備金（1レーンあたり）</div>
+            <div class="fld val">500000</div>
+            <div style="font-size:9px;color:var(--ink-faint);margin-bottom:5px">1〜4Lに同額（目標 +5%）・<span style="color:var(--accent)">個別に指定</span></div>
+            <div style="font-size:9.5px;color:var(--ink-faint)">日付</div>
+            <div class="fld val">2026/08/28</div>
+            <div class="btn">この準備金で開始</div>
+          </div>
+        </div>
+        <p class="cap">セッション欄は3タブ共通で最上部に表示（開くと判定タブ）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 2 ============ -->
+  <section id="s2">
+    <h2><span class="num">02</span>レースを判定する</h2>
+    <p class="section-note">締切の2分前あたり（直前情報とオッズが確定してから）に判定します。日付を選ぶと会場リストがその日の開催場だけに絞られます。</p>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">2.1</span><h3>レースを選んで取得</h3></div>
+        <ul>
+          <li><strong>開催日</strong>をカレンダーで選ぶ → 会場が「本日開催の場」に絞られる。</li>
+          <li><strong>場</strong> と <strong>R</strong> を選ぶ。</li>
+          <li><strong>取得して判定</strong> をタップ。</li>
+          <li>公式サイトの風向の矢印がどう見ても違う、というときだけ <strong>風向の手動上書き</strong> を使う（追い風＝右矢印、向かい風＝左矢印）。</li>
+        </ul>
+        <div class="callout tip">
+          <span class="label">速さについて</span>
+          <b>⚡ 事前計算</b> と表示されたら、裏で計算済みの結果を即表示しています。<b>🔄 最新のオッズ・風で取り直す</b>（オレンジ）でその場の最新値を取り直せます。何度でも押せます。
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="m-card">
+            <h4>レース選択</h4>
+            <div style="font-size:9.5px;color:var(--ink-faint)">開催日</div>
+            <div class="fld val">2026 / 08 / 28</div>
+            <div class="row2">
+              <div><div style="font-size:9.5px;color:var(--ink-faint)">場</div><div class="fld val">桐生</div></div>
+              <div><div style="font-size:9.5px;color:var(--ink-faint)">R</div><div class="fld val">3R</div></div>
+            </div>
+            <div style="font-size:9px;color:var(--ink-faint);margin-bottom:5px">この日の開催: 桐生・蒲郡・福岡…</div>
+            <div class="btn">取得して判定</div>
+          </div>
+        </div>
+        <p class="cap">レース選択カード</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 3 ============ -->
+  <section id="s3">
+    <h2><span class="num">03</span>買い目を確認して記録する</h2>
+    <p class="section-note">判定結果カードに、風・バケット・2号艇 vs 3号艇のスコア・買い目・掛け金が出ます。ルールの中身は <a href="#rules">07 買い方のルール</a> を参照。</p>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">3.1</span><h3>結果カードの見方</h3></div>
+        <ul>
+          <li><strong>風</strong> ── 追い風/向かい風/横風 と風速。取得値のicon番号も併記。</li>
+          <li><strong>バケット</strong> ── <span class="mono">A</span>＝追い風3m以上 / <span class="mono">B</span>＝それ以外。買うレーンが決まる。</li>
+          <li><strong>スコア表</strong> ── 2号艇と3号艇の点数。高い方が「強い方」。</li>
+          <li><strong>緑帯／赤帯</strong> ── 「2連単1番人気 X倍 ＞ 3.0倍 → 購入」or 見送り理由（1番人気3.0倍以下／風速6m以上／オッズ未確定）。</li>
+          <li><strong>判定行</strong> ── 3・4レーン（バケットA時は1・2レーン）の買い目・オッズ・掛け金。</li>
+        </ul>
+        <div class="step-head" style="margin-top:22px"><span class="n">3.2</span><h3>記録する</h3></div>
+        <ul>
+          <li>買い目はそのままでOK。<strong>現場判断で変えたいときは買い目欄を直接書き換え</strong>（例 <span class="mono">1-3</span> → <span class="mono">2-1</span>）。書き換えるとオッズが即更新。</li>
+          <li><strong>買わないレーンは買い目欄を空にする。</strong></li>
+          <li><strong>買い目を記録</strong> をタップ → 収支タブに反映。</li>
+          <li>自動が「見送り」でも、確認のうえ記録できます。</li>
+        </ul>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="m-card">
+            <div class="src">⚡ 08/28 15:52 の事前計算</div>
+            <div class="btn action" style="margin-bottom:6px">🔄 最新のオッズ・風で取り直す</div>
+            <div class="kv"><span>風</span><b>追い風 2m</b></div>
+            <div class="kv"><span>バケット</span><span class="pill bkt">B</span></div>
+          </div>
+          <div class="m-card">
+            <h4>2号艇 vs 3号艇 スコア</h4>
+            <table>
+              <tr><th></th><th>①今節</th><th>②当地</th><th>③級</th><th>計</th></tr>
+              <tr><td>2号</td><td>0回</td><td>6.38 +.5</td><td>A1 +1</td><td><b>1.5</b></td></tr>
+              <tr><td>3号 ◀強</td><td>1回 +1</td><td>5.56</td><td>A1 +1</td><td><b>2</b></td></tr>
+            </table>
+          </div>
+          <div class="m-card">
+            <h4>判定（買い目は編集可）</h4>
+            <div class="prow"><span class="id">3L</span><span class="cmb">1-3</span><span class="od">7.4</span><span>¥1,000</span></div>
+            <div class="prow"><span class="id">4L</span><span class="cmb">1-6</span><span class="od">9.9</span><span>¥1,000</span></div>
+            <div style="background:var(--good-soft);color:var(--good);border-radius:8px;padding:6px;text-align:center;font-weight:700;font-size:10px;margin:6px 0">2連単1番人気 3.4倍 ＞ 3.0倍 → 購入</div>
+            <div class="btn">買い目を記録</div>
+          </div>
+        </div>
+        <p class="cap">判定結果カード</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 4 ============ -->
+  <section id="s4">
+    <h2><span class="num">04</span>結果を反映する</h2>
+    <p class="section-note">レースが終わったら <strong>結果入力</strong> タブへ。ここで初めて台帳（掛け金）が動きます。</p>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">4.1</span><h3>1レースずつ確定</h3></div>
+        <ul>
+          <li>未確定の購入がレース単位で並びます。</li>
+          <li>結果欄に <span class="mono">3-1</span> のように2連単の決まり目を入れて <strong>確定</strong>。</li>
+          <li>または <strong>未確定をまとめて自動確定</strong> ── 結果ページから自動取得（数十秒。取れなかったレースは「未確定のまま」と表示）。</li>
+        </ul>
+        <div class="callout do">
+          <span class="label">こうなる</span>
+          的中なら払戻を記録し、そのレーンの台帳を <b>¥1,000</b> に戻す。不的中なら <b>1段階上げる</b>（<a href="#money">08</a>）。<b>買っていないレーンの台帳は動きません。</b>
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span>判定</span><span>収支</span><span class="on">結果入力</span></div>
+          <div class="m-card">
+            <h4>未確定レース</h4>
+            <div style="border:1px solid var(--line);border-radius:8px;padding:8px">
+              <div style="font-weight:700">桐生 3R <span style="color:var(--ink-faint);font-weight:400">08/28 / 周1</span></div>
+              <div style="color:var(--ink-faint);margin:3px 0 6px">3L 1-3 ¥1,000 ／ 4L 1-6 ¥1,000</div>
+              <div class="row2">
+                <div class="fld">結果 例 3-1</div>
+                <div class="btn ghost" style="margin:0;flex:0 0 60px">確定</div>
+              </div>
+            </div>
+            <div class="btn ghost" style="margin-top:8px">未確定をまとめて自動確定</div>
+          </div>
+        </div>
+        <p class="cap">結果入力タブ</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 5 ============ -->
+  <section id="s5">
+    <h2><span class="num">05</span>収支を読む</h2>
+    <p class="section-note">「収支」タブで、この周の状況・本日の明細・通算が一目で分かります。</p>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">5.1</span><h3>4つのブロック</h3></div>
+        <ul>
+          <li><strong>この周のレーン別</strong> ── 1〜4レーンごとに 準備金 / 現在のマーチン段・最大マーチン / 次の掛け金 / 連敗 / この周収支。</li>
+          <li><strong>本日の明細</strong> ── 周・レーン・場・R・組番・オッズ・掛け金・払戻・結果。「1〜4レーンそれぞれ今日いくら賭けて何倍でいくら払戻か」がここで分かる。</li>
+          <li><strong>本日の周回 / 日次</strong> ── 周ごとの収支と、日次収支・日利（収支 ÷ 準備金合計）。</li>
+          <li><strong>通算</strong> ── 全期間の賭け金・払戻・収支・的中率。</li>
+        </ul>
+        <div class="callout tip">
+          <span class="label">セッション欄との一致</span>
+          セッション欄の <b>現在（準備金＋確定収支）</b> と進捗バーは、常に明細と一致します。<b>「⚠残高不足」</b>が出たら、そのレーンの次の掛け金が残高を超えています。
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span>判定</span><span class="on">収支</span><span>結果入力</span></div>
+          <div class="m-card">
+            <h4>周回 1（20260828）</h4>
+            <div class="kv"><span>準備金合計</span><b>¥2,000,000</b></div>
+            <div class="kv"><span>目標（+5%）</span><b>¥2,100,000</b></div>
+            <div class="kv"><span>現在</span><b class="pos">¥2,005,400</b></div>
+            <div style="height:5px;border-radius:3px;background:var(--surface-2);margin:5px 0"><div style="width:6%;height:100%;background:var(--good);border-radius:3px"></div></div>
+            <div style="font-size:9px;color:var(--ink-faint)">確定収支 ¥5,400 ／ 達成まで ¥94,600</div>
+          </div>
+          <div class="m-card">
+            <h4>この周のレーン別</h4>
+            <table>
+              <tr><th>L</th><th>準備金</th><th>段</th><th>次</th><th>連敗</th><th>収支</th></tr>
+              <tr><td>3L</td><td>50万</td><td>1/9</td><td>¥1,000</td><td>0</td><td class="pos">+6,400</td></tr>
+              <tr><td>4L</td><td>50万</td><td>2/10</td><td>¥2,000</td><td>1</td><td class="neg">-1,000</td></tr>
+            </table>
+          </div>
+        </div>
+        <p class="cap">収支タブ（一部）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 6 ============ -->
+  <section id="s6">
+    <h2><span class="num">06</span>+5%到達 / 2周目</h2>
+    <p class="section-note">確定利益が準備金合計の +5% に届くと、その周は <strong>ハードストップ</strong>。赤帯が出て、それ以上は記録できません。</p>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">6.1</span><h3>2つの選択</h3></div>
+        <ul>
+          <li><strong>本日終了</strong> ── その日はここまで。</li>
+          <li><strong>2周目を開始</strong> ── 完全に独立した新セッション。準備金を入れ直し、新しい+5%目標、1〜4レーンの段はすべて <span class="mono">¥1,000</span> から。</li>
+        </ul>
+        <p class="body-narrow">1日の収支は「全周回の合計」です。2周目で負けても、1周目の +5% はそのまま日次収支に残ります。</p>
+        <div class="callout warn">
+          <span class="label">メモ</span>
+          準備金を入れ間違えたときは、セッション欄の <b>準備金を修正</b> から直せます（進行中の周のみ・段や記録済みのベットは変わりません）。
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="m-card">
+            <h4>周回 1（20260828）</h4>
+            <div class="kv"><span>目標（+5%）</span><b>¥2,100,000</b></div>
+            <div class="kv"><span>現在</span><b class="pos">¥2,118,000</b></div>
+            <div class="bang" style="margin:7px 0">＋5% 到達 ── ハードストップ中</div>
+            <div class="row2">
+              <div class="btn ghost" style="margin:0">本日終了</div>
+              <div class="btn" style="margin:0">2周目を開始</div>
+            </div>
+          </div>
+        </div>
+        <p class="cap">+5%到達時のセッション欄</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============ RULES ============ -->
+  <section id="rules">
+    <h2><span class="num">07</span>買い方のルール</h2>
+    <p class="section-note">アプリが自動でやっている判定の中身。すべて <strong>2連単</strong>。順番は「大前提 → スコア → 風でレーン」。</p>
+
+    <h3>① 大前提（まずここを見る。1つでも当てはまればレース全体を見送り）</h3>
+    <div class="callout do">
+      <span class="label">見送り条件 1 ── オッズ</span>
+      <b>2連単1番人気（最低オッズの組）が 3.0倍以下</b> → 見送り（3.0倍ちょうども不可）。1番人気＞3.0倍なら他の全組も＞3.0倍。
+    </div>
+    <div class="callout do">
+      <span class="label">見送り条件 2 ── 風</span>
+      <b>風速 6m以上</b> → 見送り（風向・バケット問わず）。しきい値は「設定」シートで変更可。
+    </div>
+
+    <h3 style="margin-top:28px">② 選手評価スコア ── 2号艇と3号艇のどちらを「強い方」にするか</h3>
+    <div class="scroll-x">
+      <table class="ref">
+        <thead><tr><th>項目</th><th>内容</th><th class="n">加点</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>① 今節成績</td>
+            <td>今節、<strong>進入1〜3コースから1着or2着に来た回数</strong>が、1〜3号艇の中で……<br>最多／2番目</td>
+            <td class="n">+1 ／ +0.5</td>
+          </tr>
+          <tr>
+            <td>② 勝率</td>
+            <td><strong>当地勝率</strong>が全6艇の中で……最高／2番目<br><span style="color:var(--ink-faint)">※そのレースに当地勝率0の艇がいたら、そのレースだけ全国勝率で比較（他のレースには影響しない）</span></td>
+            <td class="n">+1 ／ +0.5</td>
+          </tr>
+          <tr>
+            <td>③ クラス</td>
+            <td>A1 ／ A2・B1 ／ B2</td>
+            <td class="n">+1 ／ +0.5 ／ 0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-narrow">合計が高い方が「<strong>強い方</strong>」。<strong>合計が同じならイン（＝2号艇）を優先。</strong>判定結果カードの「2号艇 vs 3号艇 スコア」表に、回数・勝率・各点・合計が出ます。</p>
+
+    <h3 style="margin-top:28px">③ 風でバケットを決める → 買うレーンが決まる</h3>
+    <div class="grid2" style="margin-top:10px">
+      <div class="rcard">
+        <h3 style="color:var(--accent)">バケット A</h3>
+        <p style="font-size:14px"><strong>追い風かつ風速3m以上</strong>（6m未満）</p>
+        <p style="font-size:14px;margin-top:8px"><strong>1レーン</strong> <span class="mono">強い方(2/3)-1</span><br><strong>2レーン</strong> 2連単1番人気</p>
+      </div>
+      <div class="rcard">
+        <h3 style="color:var(--accent)">バケット B</h3>
+        <p style="font-size:14px"><strong>向かい風 / 追い風2m以下 / 横風 / 無風</strong></p>
+        <p style="font-size:14px;margin-top:8px"><strong>3レーン</strong> <span class="mono">1-強い方(2/3)</span><br><strong>4レーン</strong> 2連単3番人気</p>
+      </div>
+    </div>
+    <p class="body-narrow" style="margin-top:12px">大前提を通れば、そのバケットの2レーンを両方買う（買い目は現場判断で編集可）。</p>
+
+    <div class="callout tip">
+      <span class="label">風向アイコン</span>
+      <b>右矢印＝追い風</b>、左矢印＝向かい風、上下＝横風。矢印が明らかにおかしいときだけ判定画面で手動上書き。
+    </div>
+  </section>
+
+  <!-- ============ MONEY ============ -->
+  <section id="money">
+    <h2><span class="num">08</span>資金管理の仕組み</h2>
+    <p class="section-note">マーチンゲールの段は <strong>1〜4レーンで完全に独立</strong>。各レーンは自分の勝敗だけで段が上下します。</p>
+
+    <h3>掛け金の段</h3>
+    <div class="ladder">
+      <span>1,000</span><span>2,000</span><span>3,000</span><span>5,000</span><span>8,000</span><span>13,000</span><span>21,000</span><span>34,000</span><span>55,000</span><span>89,000</span><span>144,000</span>
+    </div>
+    <div class="scroll-x">
+      <table class="ref">
+        <thead><tr><th>そのレーンが</th><th>台帳の動き</th></tr></thead>
+        <tbody>
+          <tr><td><strong>的中</strong>（その組が2連単の結果と一致）</td><td>¥1,000（1マーチン目）に戻す</td></tr>
+          <tr><td><strong>不的中</strong></td><td>1段階上げる</td></tr>
+          <tr><td><strong>最大マーチンで不的中</strong><br>（1・2・4レーン=10、3レーン=9）</td><td><strong>直近の掛け金 ÷ 10 に一番近い段</strong>から再開<br>例: 89,000 で負け → 89,000÷10 = 8,900 → 一番近い <strong>8,000</strong> から</td></tr>
+          <tr><td>そのレースで買っていない</td><td>変化なし</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-narrow" style="color:var(--ink-faint);font-size:13px">最大マーチン数は「設定」シートでレーンごとに変更できます。</p>
+
+    <h3 style="margin-top:26px">周回（セッション）</h3>
+    <ul style="padding-left:22px" class="body-narrow">
+      <li style="margin-bottom:8px"><strong>準備金</strong> ── 周の開始時に 1〜4レーン へ配分。基本は同額。</li>
+      <li style="margin-bottom:8px"><strong>+5%目標</strong> ── <span class="mono">準備金合計 × 1.05</span>。確定済みベットの <span class="mono">Σ払戻 − Σ掛け金</span> がこれ以上でハードストップ。</li>
+      <li style="margin-bottom:8px"><strong>2周目</strong> ── 完全に独立。準備金・目標・段すべてリセット。</li>
+      <li><strong>1日の収支</strong> ── その日の全周回の合計。日利 ＝ 収支 ÷ 準備金合計。</li>
+    </ul>
+
+    <div class="callout warn">
+      <span class="label">リスク</span>
+      1レーンが最大マーチンまで連敗したときの累計は、1・2・4レーン（最大10）で <b>¥231,000</b>、3レーン（最大9）で <b>¥142,000</b>。最大段の先は 1/10 リセットで循環します。
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <h2><span class="num">09</span>困ったとき</h2>
+
+    <details>
+      <summary>「取得して判定」を押しても変わらない / 反応しない</summary>
+      <div class="ans">押すたびに緑の「✓ 判定しました（時刻）」が出ます。事前計算がヒットして内容が同じだと変化が分かりにくいだけ。最新値が欲しいときはオレンジの <strong>🔄 最新のオッズ・風で取り直す</strong>。それでも固まるようなら画面を下に引っ張って更新、または右上の <span class="mono">🔄</span>。</div>
+    </details>
+
+    <details>
+      <summary>結果入力タブが「読み込み中」から進まない</summary>
+      <div class="ans">下に引っ張って更新。直らなければ管理者に連絡（GASエディタで <span class="mono">test_diag</span> を実行してシート構成を確認）。</div>
+    </details>
+
+    <details>
+      <summary>ホーム画面から開くと再読み込みできない</summary>
+      <div class="ans">画面を下に引っ張ると更新されます。うまくいかないときは右上の <span class="mono">🔄</span> ボタン。</div>
+    </details>
+
+    <details>
+      <summary>「出走表を取得できませんでした」と出る</summary>
+      <div class="ans">その場は選んだ日に開催がありません。エラー文にその日の開催場が出るので、そこから選び直してください。開催日を選び直すと会場リストも絞られます。</div>
+    </details>
+
+    <details>
+      <summary>風向が実際と逆に見える</summary>
+      <div class="ans">判定画面の <strong>風向の手動上書き</strong> で「追い風／向かい風／横風」と風速を指定して取り直せます。恒常的にずれているなら管理者へ（<span class="mono">Logic.gs</span> の設定を入れ替え）。</div>
+    </details>
+
+    <details>
+      <summary>準備金を間違えて入れた</summary>
+      <div class="ans">セッション欄の <strong>準備金を修正</strong>（進行中の周のみ）。段や記録済みのベットは変わらず、+5%目標だけ再計算されます。</div>
+    </details>
+
+    <details>
+      <summary>2レーン分の買い目が出たけど片方だけ買いたい</summary>
+      <div class="ans">買わない方の買い目欄を空にしてから「買い目を記録」。空欄のレーンは記録されません。</div>
+    </details>
+  </section>
+
+  <!-- ============ ADMIN ============ -->
+  <section id="admin">
+    <h2><span class="num">10</span>管理者向けセットアップ</h2>
+    <p class="section-note">初回だけ。Google側の作業なので本人（デプロイする人）が行います。詳細は <span class="mono">README.md</span>。</p>
+
+    <ol class="plain">
+      <li>Googleドライブで新規スプレッドシート → 拡張機能 → Apps Script</li>
+      <li><span class="mono">apps-script/</span> の全ファイルを貼り付け（Code / Fetch / Parse / Logic / Tests <span class="mono">.gs</span>、Index.html、appsscript.json）</li>
+      <li>関数 <span class="mono">initSpreadsheet</span> を1回実行 ── シートを自動生成</li>
+      <li>関数 <span class="mono">setupPrecompute</span> を1回実行 ── 事前計算トリガー（開催時間帯だけ動く2段構成）</li>
+      <li>デプロイ → ウェブアプリ／実行: 自分／アクセス: 全員 → URLを <span class="mono">WEB_APP_URL</span> に貼って再デプロイ</li>
+      <li>チームにURLを配布。各自ホーム画面に追加</li>
+    </ol>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="rcard">
+        <h3>コード更新後の再デプロイ</h3>
+        <p style="font-size:14px">「デプロイを管理 → 鉛筆 → バージョン: 新バージョン → デプロイ」。<strong>「新しいデプロイ」はURLが変わる</strong>ので使わない。</p>
+      </div>
+      <div class="rcard">
+        <h3>データを片付けたいとき</h3>
+        <p style="font-size:14px"><span class="mono">resetSessions</span> ＝ 周回/台帳/履歴/事前判定 を空に。<br><span class="mono">test_diag</span> ＝ シート構成の診断。<br><span class="mono">removePrecompute</span> ＝ 事前計算を停止。</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">共有の前提</span>
+      個人Gmail運用のため、アプリのアクセスは実質「URLを知っているか」だけ。URLを外部に出さない。状態はチームで1つ（進行中の周回・台帳は全員共通）。
+    </div>
+  </section>
+
+  <footer>
+    競艇マーチン 判定・管理 ／ 操作マニュアル。データ元は boatrace.jp（出走表・直前情報・オッズ・結果）。直前情報とオッズは締切1〜2分前まで確定しないため、判定は締切直前に行うこと。
+  </footer>
+
+</div>
+</body>
+</html>
