@@ -290,6 +290,31 @@
   .phone table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
   .phone th, .phone td { padding: 3px 2px; text-align: center; border-bottom: 1px solid var(--line); }
   .phone th { color: var(--ink-faint); font-weight: 700; }
+  .phone .plab { font-size: 9px; color: var(--ink-faint); margin: 0 0 4px 22px; }
+  .phone .tix { margin: 2px 0 8px 22px; border-left: 3px solid #f0d2b0; padding-left: 7px; font-size: 10px; }
+  .phone .tix div { display: flex; justify-content: space-between; gap: 4px; padding: 1px 0; font-variant-numeric: tabular-nums; }
+  .phone .tix div b { min-width: 34px; font-family: "Roboto Mono", monospace; font-weight: 500; }
+  .phone .tix div i { font-style: normal; color: var(--ink-faint); }
+  .phone .tix .sum { border-top: 1px dashed var(--line-strong); margin-top: 2px; padding-top: 2px; font-weight: 700; }
+  .phone .t3 { display: inline-block; padding: 0 5px; border-radius: 4px; font-size: 8.5px; font-weight: 700; background: var(--action-soft); color: var(--action); }
+  .phone .editrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .phone .editrow > div { min-width: 0; }
+  .phone .editrow .fld { padding: 5px 2px; text-align: center; font-size: 9.5px; overflow: hidden; }
+
+  /* ---------- spreadsheet mock ---------- */
+  .sheet { border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); margin: 12px 0 6px; }
+  .sheet .sbar { background: var(--surface-2); border-bottom: 1px solid var(--line-strong); padding: 6px 10px; font-size: 12px; color: var(--ink-soft); display: flex; gap: 10px; align-items: center; }
+  .sheet .sbar b { background: #fff8e6; border: 1px solid #ecd9a8; border-radius: 4px; padding: 1px 8px; color: var(--ink); font-family: "Roboto Mono", monospace; font-weight: 500; }
+  .sheet table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .sheet th, .sheet td { border: 1px solid var(--line); padding: 4px 7px; text-align: right; white-space: nowrap; }
+  .sheet th { background: #eef2f7; color: var(--ink); font-weight: 700; text-align: center; }
+  .sheet td:first-child { text-align: left; }
+  .sheet tr.total td { font-weight: 700; border-top: 2px solid var(--line-strong); }
+  .sheet .ttl td { background: var(--accent); color: #fff; font-weight: 700; text-align: left; }
+  .sheet .neg { color: var(--bad); }
+  .sheet .lanes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+  @media (max-width: 560px) { .sheet .lanes { grid-template-columns: 1fr; } }
+
   .cap {
     font-size: 12px;
     color: var(--ink-faint);
@@ -451,7 +476,8 @@
       <li><a href="#s6"><b>06</b>+5%到達 / 2周目</a></li>
       <li><a href="#rules"><b>07</b>買い方のルール</a></li>
       <li><a href="#money"><b>08</b>資金管理の仕組み</a></li>
-      <li><a href="#faq"><b>09</b>困ったとき</a></li>
+      <li><a href="#sheet"><b>09</b>スプレッドシートで見る</a></li>
+      <li><a href="#faq"><b>10</b>困ったとき</a></li>
       <!-- 管理者向けセットアップ（10）は非公開。編集時にコメントアウトを外すと復活する -->
     </ol>
   </nav>
@@ -526,6 +552,42 @@
           </div>
         </div>
         <p class="cap">セッション欄は全タブ共通で最上部に表示（開くと判定タブ）</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">1.2</span><h3>準備金を修正する（入れ間違えたとき）</h3></div>
+        <ul>
+          <li>周回が始まったあとでも、セッション欄の <strong>準備金を修正</strong> をタップすると入力欄が開きます。</li>
+          <li><span class="mono">1L</span>〜<span class="mono">4L</span> を1つずつ直すか、「全部にこの額」に入れて <strong>反映</strong> で4つまとめて同じ額に。</li>
+          <li><strong>修正して保存</strong> をタップ。</li>
+        </ul>
+        <div class="callout do">
+          <span class="label">こうなる</span>
+          準備金と <b>+5%目標</b>（達成判定）だけが計算し直されます。<b>段・掛け金・記録済みのベットはそのまま</b>。直せるのは進行中の周だけです。
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span><span>設定</span></div>
+          <div class="m-card">
+            <h4>周回 1（20260923）</h4>
+            <div class="kv"><span>準備金合計</span><b>¥636,000</b></div>
+            <div class="kv"><span>目標（+5%）</span><b>¥667,800</b></div>
+            <div style="color:var(--accent);text-decoration:underline;margin:6px 0 4px">準備金を修正</div>
+            <div class="editrow">
+              <div><div style="font-size:9px;color:var(--ink-faint)">1L</div><div class="fld val">159000</div></div>
+              <div><div style="font-size:9px;color:var(--ink-faint)">2L</div><div class="fld val">159000</div></div>
+              <div><div style="font-size:9px;color:var(--ink-faint)">3L</div><div class="fld val">159000</div></div>
+              <div><div style="font-size:9px;color:var(--ink-faint)">4L</div><div class="fld val">159000</div></div>
+            </div>
+            <div class="row2"><div class="fld">全部にこの額</div><div class="btn ghost" style="margin:0;flex:0 0 46px">反映</div></div>
+            <div class="btn">修正して保存</div>
+          </div>
+        </div>
+        <p class="cap">セッション欄の「準備金を修正」</p>
       </div>
     </div>
   </section>
@@ -623,6 +685,58 @@
           </div>
         </div>
         <p class="cap">判定結果カード</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div>
+        <div class="step-head"><span class="n">3.3</span><h3>8マーチン目以降は3連単で記録</h3></div>
+        <p class="body-narrow">そのレーンが <b>8マーチン目</b>（開始マーチンは設定で変更可）に来ると、画面が少し変わります。判定の仕方は同じです。</p>
+        <ul>
+          <li>レーンの行は今までどおり <strong>2連単の買い目（1着-2着）</strong> と、その段の掛け金（例 <span class="mono">¥34,000</span>）。</li>
+          <li>説明の行に「（8マーチン目）」と <span class="tag-3t">3連単</span> が付きます。</li>
+          <li>その下に、1着-2着を固定した <strong>3連単4点が人気順</strong> に並びます。オッズ・配分（40/25/17.5/17.5%）・金額・<strong>合計</strong>を確認。</li>
+          <li>買い目欄を書き換えると（例 <span class="mono">3-1</span> → <span class="mono">2-1</span>）、<span class="mono">2-1-X</span> の4点に自動で組み直されます。</li>
+          <li><strong>買い目を記録</strong> で4点まとめて記録（「1L 3連単4点 ¥34,100」のように表示）。</li>
+        </ul>
+        <div class="callout tip">
+          <span class="label">金額が少しずれる理由</span>
+          4点それぞれを100円単位に四捨五入するので、合計は段の額と少しずれます（¥34,000 → 実際 <b>¥34,100</b>）。次の段は本来の額（¥55,000）で計算されるので、ずれは持ち越しません。
+        </div>
+        <div class="callout do">
+          <span class="label">結果の反映</span>
+          結果入力は空欄のまま確定でOK（公式から自動取得）。公式が取れないときだけ <span class="mono">3-1-2</span> のように <b>3着まで</b> 入力。4点のどれかが当たれば的中で、1段目に戻ります。
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="bar">競艇マーチン 判定・管理</div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span><span>設定</span></div>
+          <div class="m-card">
+            <h4>判定 ── 追い風2m以上・下からの横風（1・2レーン）</h4>
+            <div class="prow"><span class="id">1L</span><span class="cmb">3-1</span><span class="od">13.8</span><span style="color:var(--ink-faint)">¥34,000</span></div>
+            <div class="plab">1レーン：強い方(3)-1（8マーチン目） <span class="t3">3連単</span></div>
+            <div class="tix">
+              <div><b>3-1-4</b><span>35.5倍</span><i>40%</i><span>¥13,600</span></div>
+              <div><b>3-1-6</b><span>47.0倍</span><i>25%</i><span>¥8,500</span></div>
+              <div><b>3-1-2</b><span>87.3倍</span><i>17.5%</i><span>¥6,000</span></div>
+              <div><b>3-1-5</b><span>89.6倍</span><i>17.5%</i><span>¥6,000</span></div>
+              <div class="sum"><span>計4点</span><span>¥34,100</span></div>
+            </div>
+            <div class="prow"><span class="id">2L</span><span class="cmb">1-3</span><span class="od">7.4</span><span style="color:var(--ink-faint)">¥34,000</span></div>
+            <div class="plab">2レーン：2連単1番人気（8マーチン目） <span class="t3">3連単</span></div>
+            <div class="tix">
+              <div><b>1-3-4</b><span>21.0倍</span><i>40%</i><span>¥13,600</span></div>
+              <div><b>1-3-6</b><span>24.5倍</span><i>25%</i><span>¥8,500</span></div>
+              <div><b>1-3-2</b><span>35.4倍</span><i>17.5%</i><span>¥6,000</span></div>
+              <div><b>1-3-5</b><span>65.6倍</span><i>17.5%</i><span>¥6,000</span></div>
+              <div class="sum"><span>計4点</span><span>¥34,100</span></div>
+            </div>
+            <div style="background:var(--good-soft);color:var(--good);border-radius:8px;padding:6px;text-align:center;font-weight:700;font-size:10px;margin:6px 0">2連単1番人気 7.4倍（2.99倍以上）→ 購入</div>
+            <div class="btn">買い目を記録</div>
+          </div>
+        </div>
+        <p class="cap">8マーチン目の判定カード（スタート額 ¥1,000 の例）</p>
       </div>
     </div>
   </section>
@@ -872,9 +986,82 @@
 
   <hr>
 
+  <!-- ============ SHEET ============ -->
+  <section id="sheet">
+    <h2><span class="num">09</span>スプレッドシートで見る</h2>
+    <p class="section-note">スプレッドシートを開ける人向け。アプリの記録から自動で作られる <strong>日次明細</strong> と <strong>月次集計</strong> の2シートで、1日・1か月の成績をまとめて見られます。</p>
+
+    <h3>日次明細 ── 1日のレーン別</h3>
+    <ul style="padding-left:22px" class="body-narrow">
+      <li style="margin-bottom:6px"><strong>B1 の日付</strong>の日を表示。日付を変えると切り替わります（ダブルクリックでカレンダー）。</li>
+      <li style="margin-bottom:6px">上に <strong>レーン別の集計表</strong>（準備金・掛け金・払戻金額・収支・日利・未確定）と合計。</li>
+      <li>下に <strong>1〜4レーンの明細表</strong>（掛け金・会場・R・組番・オッズ・払戻）。3連単は4点を1行ずつ出し、当たった券に払戻が入ります。</li>
+    </ul>
+    <div class="sheet">
+      <div class="sbar">日付 <b>2026/09/23</b> <span>← 日付を変えると切り替わります</span></div>
+      <div class="scroll-x">
+        <table>
+          <tr><th>区分</th><th>準備金</th><th>掛け金</th><th>払戻金額</th><th>収支</th><th>日利</th><th>未確定</th></tr>
+          <tr><td>1レーン</td><td>¥159,000</td><td>¥9,200</td><td>¥15,210</td><td>¥6,010</td><td>3.78%</td><td></td></tr>
+          <tr><td>2レーン</td><td>¥159,000</td><td>¥9,200</td><td>¥16,010</td><td>¥6,810</td><td>4.28%</td><td></td></tr>
+          <tr><td>3レーン</td><td>¥159,000</td><td>¥16,800</td><td>¥16,200</td><td class="neg">-¥600</td><td class="neg">-0.38%</td><td></td></tr>
+          <tr><td>4レーン</td><td>¥159,000</td><td>¥16,800</td><td>¥6,300</td><td class="neg">-¥10,500</td><td class="neg">-6.60%</td><td></td></tr>
+          <tr class="total"><td>合計</td><td>¥636,000</td><td>¥52,000</td><td>¥53,720</td><td>¥1,720</td><td>0.27%</td><td></td></tr>
+        </table>
+      </div>
+      <div class="lanes">
+        <div class="scroll-x"><table>
+          <tr class="ttl"><td colspan="6">1レーン　12件（的中2）</td></tr>
+          <tr><th>掛け金</th><th>会場</th><th>R</th><th>組番</th><th>オッズ</th><th>払戻</th></tr>
+          <tr><td>¥100</td><td>びわこ</td><td>2</td><td>3-1</td><td>5.9</td><td>¥590</td></tr>
+          <tr><td>¥100</td><td>宮島</td><td>2</td><td>3-1</td><td></td><td>¥0</td></tr>
+          <tr><td>¥200</td><td>宮島</td><td>4</td><td>3-1</td><td></td><td>¥0</td></tr>
+          <tr><td colspan="6" style="text-align:center;color:var(--ink-faint)">…</td></tr>
+        </table></div>
+        <div class="scroll-x"><table>
+          <tr class="ttl"><td colspan="6">3連単のときの例（4点を1行ずつ）</td></tr>
+          <tr><th>掛け金</th><th>会場</th><th>R</th><th>組番</th><th>オッズ</th><th>払戻</th></tr>
+          <tr><td>¥13,600</td><td>桐生</td><td>1</td><td>1-3-4</td><td>21.0</td><td>¥0</td></tr>
+          <tr><td>¥8,500</td><td>桐生</td><td>1</td><td>1-3-6</td><td>24.5</td><td>¥208,250</td></tr>
+          <tr><td>¥6,000</td><td>桐生</td><td>1</td><td>1-3-2</td><td>35.4</td><td>¥0</td></tr>
+          <tr><td>¥6,000</td><td>桐生</td><td>1</td><td>1-3-5</td><td>65.6</td><td>¥0</td></tr>
+        </table></div>
+      </div>
+    </div>
+    <p class="cap" style="text-align:left">日次明細（上: 集計 ／ 下: レーンごとの明細。実際は4レーンが横に並びます）</p>
+
+    <h3 style="margin-top:26px">月次集計 ── 月ごと・日ごと</h3>
+    <ul style="padding-left:22px" class="body-narrow">
+      <li style="margin-bottom:6px">上に <strong>月別一覧</strong>（新しい月が上）: 稼働日数・1日平均の準備金・掛け金・払戻金額・収支・月利・平均日利・的中/件数・レーン別収支。</li>
+      <li style="margin-bottom:6px">下に <strong>B1 の月の日別</strong>（日付・周回数・準備金・掛け金・払戻金額・収支・日利・レーン別収支）と <strong>月計</strong>。</li>
+      <li><strong>月利</strong> ＝ 収支 ÷ 1日平均の準備金 ／ <strong>平均日利</strong> ＝ 収支 ÷ 準備金の延べ合計。</li>
+    </ul>
+
+    <h3 style="margin-top:26px">いつ更新される？</h3>
+    <div class="scroll-x">
+      <table class="ref">
+        <thead><tr><th>タイミング</th><th>どうなる</th></tr></thead>
+        <tbody>
+          <tr><td><strong>買い目を記録した</strong></td><td>数秒後に反映（払戻は空欄・集計の「未確定」が増える）</td></tr>
+          <tr><td><strong>結果を確定した</strong></td><td>数秒後に払戻・収支・日利が入る</td></tr>
+          <tr><td>周回を開始した</td><td>B1 がその日（その月）に切り替わる</td></tr>
+          <tr><td>準備金を修正した / スプレッドシートを開いた / B1 を変えた</td><td>作り直し</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-narrow" style="margin-top:10px">記録・確定での自動反映は、<strong>B1 がその日（月次はその月）を選んでいるとき</strong>だけです。手動で更新したいときはメニュー <strong>競艇マーチン &gt; 日次明細・月次集計を更新</strong>。</p>
+
+    <div class="callout warn">
+      <span class="label">注意</span>
+      この2シートは表示専用で、更新のたびに作り直されます。<b>書き込んだメモや色付けは消えます</b>（変えてよいのは B1 だけ）。集計（掛け金・払戻・収支・日利）は <b>確定済みの購入だけ</b>。未確定は件数だけ出ます。
+    </div>
+  </section>
+
+  <hr>
+
   <!-- ============ FAQ ============ -->
   <section id="faq">
-    <h2><span class="num">09</span>困ったとき</h2>
+    <h2><span class="num">10</span>困ったとき</h2>
 
     <details>
       <summary>「取得して判定」を押しても変わらない / 反応しない</summary>
@@ -907,6 +1094,11 @@
     </details>
 
     <details>
+      <summary>スプレッドシートの日次明細に、記録・確定したものが出てこない</summary>
+      <div class="ans">B1 の日付がその日になっているか確認してください（別の日を選んでいると自動では変わりません）。それでも出ないときはメニュー <strong>競艇マーチン &gt; 日次明細・月次集計を更新</strong>。</div>
+    </details>
+
+    <details>
       <summary>3連単の支払額が掛け金とちょっと違う</summary>
       <div class="ans">4点それぞれを100円単位に四捨五入しているためです（例 ¥34,000 → 実際 ¥34,100）。次の段の掛け金は本来の額で計算されるので、ずれは持ち越されません。</div>
     </details>
@@ -926,7 +1118,7 @@
        公開したくなったら、この行と、下の「非公開ここまで」の行の2つを消す =====
 
   <section id="admin">
-    <h2><span class="num">10</span>管理者向けセットアップ</h2>
+    <h2><span class="num">11</span>管理者向けセットアップ</h2>
     <p class="section-note">初回だけ。Google側の作業なので本人（デプロイする人）が行います。詳細は <span class="mono">README.md</span>。</p>
 
     <ol class="plain">
