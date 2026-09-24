@@ -370,6 +370,11 @@
     font-variant-numeric: tabular-nums;
   }
   .ladder span:last-child { border-color: var(--bad); color: var(--bad); }
+  .ladder span:nth-child(n+8) { background: var(--action-soft, #fbeee2); }
+  .tag-3t {
+    display: inline-block; padding: 0 6px; border-radius: 5px; font-size: 12px; font-weight: 700;
+    background: var(--action-soft, #fbeee2); color: var(--action);
+  }
 
   /* ---------- faq ---------- */
   details {
@@ -426,11 +431,11 @@
   <header>
     <span class="kicker">チーム用ドキュメント</span>
     <h1>競艇マーチン 判定・管理<br>操作マニュアル</h1>
-    <p class="lede">決めたルールで2連単の買い目を出し、周回（セッション）ごとに準備金と掛け金を管理する、スマホ用ウェブアプリの使い方。チーム全員がこれを見れば1日を回せます。</p>
+    <p class="lede">決めたルールで買い目（2連単・8マーチン目以降は3連単）を出し、周回（セッション）ごとに準備金と掛け金を管理する、スマホ用ウェブアプリの使い方。チーム全員がこれを見れば1日を回せます。</p>
     <div class="meta">
       <span>対象 ── チーム全員</span>
       <span>端末 ── スマホ（ホーム画面に追加推奨）</span>
-      <span>タブ ── 判定 / 収支 / 結果入力</span>
+      <span>タブ ── 判定 / 収支 / 結果入力 / 設定</span>
     </div>
   </header>
 
@@ -454,15 +459,16 @@
   <!-- ============ OVERVIEW ============ -->
   <section id="overview">
     <h2><span class="num">00</span>まず全体像</h2>
-    <p class="section-note">アプリは3タブ。1日の作業は「周回を開始 → レースごとに判定して記録 → レース後に結果を反映」の繰り返しで、確定利益が準備金合計の <strong>+5%</strong> に届いたらその周は終了です。</p>
+    <p class="section-note">アプリは4タブ。1日の作業は「周回を開始 → レースごとに判定して記録 → レース後に結果を反映」の繰り返しで、確定利益が準備金合計の <strong>+5%</strong> に届いたらその周は終了です。</p>
 
     <div class="grid2">
       <div class="rcard">
-        <h3>3つのタブ</h3>
+        <h3>4つのタブ</h3>
         <table class="ref">
           <tr><td><strong>判定</strong></td><td>レースを選んで買い目を出す・記録する</td></tr>
-          <tr><td><strong>収支</strong></td><td>1〜4レーンの掛け金と収支、本日の明細、通算</td></tr>
+          <tr><td><strong>収支</strong></td><td>1〜4レーンの掛け金と収支、レーン別の明細、通算</td></tr>
           <tr><td><strong>結果入力</strong></td><td>レース後、結果を反映して台帳を動かす</td></tr>
+          <tr><td><strong>設定</strong></td><td>オッズ下限・スタート額・最大マーチン・連動などのルール値（チーム共通）</td></tr>
         </table>
         <p style="font-size:13px;color:var(--ink-soft);margin-top:10px">画面いちばん上の <strong>本日のセッション</strong> 欄は全タブ共通。ここで周回の開始・終了・準備金修正をします。</p>
       </div>
@@ -471,7 +477,7 @@
         <ol class="plain" style="font-size:14px">
           <li>朝いちばん ── <strong>準備金を入れて周回を開始</strong></li>
           <li>各レースの締切2分前 ── <strong>取得して判定</strong></li>
-          <li>大前提OK（1番人気＞3.0倍・風速＜6m）なら買い目を確認して <strong>記録</strong></li>
+          <li>大前提OK（風速6m未満・1〜3号艇にF2なし・1番人気2.99倍以上）なら買い目を確認して <strong>記録</strong></li>
           <li>レースが終わったら <strong>結果入力</strong> で反映</li>
           <li>2〜4を繰り返す</li>
           <li><strong>+5%</strong> に届いたら本日終了（or 2周目）</li>
@@ -501,13 +507,13 @@
         </ul>
         <div class="callout do">
           <span class="label">こうなる</span>
-          周回が始まり、1〜4レーンの掛け金がすべて <b>¥1,000</b> にセットされます。目標は <b>準備金合計 × +5%</b>（200万なら +10万 = 210万）。
+          周回が始まり、1〜4レーンの掛け金がすべて <b>スタート額</b>（既定 ¥1,000・設定タブで変更）にセットされます。目標は <b>準備金合計 × +5%</b>（200万なら +10万 = 210万）。
         </div>
       </div>
       <div class="phone-col">
         <div class="phone">
           <div class="bar">競艇マーチン 判定・管理</div>
-          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span><span>設定</span></div>
           <div class="m-card">
             <h4>本日のセッション</h4>
             <div style="color:var(--ink-faint);margin-bottom:6px">周回が始まっていません</div>
@@ -519,7 +525,7 @@
             <div class="btn">この準備金で開始</div>
           </div>
         </div>
-        <p class="cap">セッション欄は3タブ共通で最上部に表示（開くと判定タブ）</p>
+        <p class="cap">セッション欄は全タブ共通で最上部に表示（開くと判定タブ）</p>
       </div>
     </div>
   </section>
@@ -536,7 +542,7 @@
           <li><strong>開催日</strong>をカレンダーで選ぶ → 会場が「本日開催の場」に絞られる。</li>
           <li><strong>場</strong> と <strong>R</strong> を選ぶ。</li>
           <li><strong>取得して判定</strong> をタップ。結果カード上部に <strong>締切カウントダウン</strong>（締切 14:57 ── あと 1:35）が出ます。残り1分を切ると赤く点滅。</li>
-          <li>公式サイトの風向の矢印がどう見ても違う、というときだけ <strong>風向の手動上書き</strong> を使う（追い風＝右矢印、向かい風＝左矢印）。</li>
+          <li>公式サイトの風向の矢印がどう見ても違う、というときだけ <strong>風向の手動上書き</strong> を使う（追い風＝右矢印、向かい風＝左矢印、上向き＝下からの横風、下向き＝上からの横風）。</li>
         </ul>
         <div class="callout tip">
           <span class="label">速さについて</span>
@@ -546,7 +552,7 @@
       <div class="phone-col">
         <div class="phone">
           <div class="bar">競艇マーチン 判定・管理</div>
-          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span><span>設定</span></div>
           <div class="m-card">
             <h4>レース選択</h4>
             <div style="font-size:9.5px;color:var(--ink-faint)">開催日</div>
@@ -567,23 +573,24 @@
   <!-- ============ STEP 3 ============ -->
   <section id="s3">
     <h2><span class="num">03</span>買い目を確認して記録する</h2>
-    <p class="section-note">判定結果カードに、風・バケット・2号艇 vs 3号艇のスコア・買い目・掛け金が出ます。ルールの中身は <a href="#rules">07 買い方のルール</a> を参照。</p>
+    <p class="section-note">判定結果カードに、風・バケット・スコア（Aは2・3・4号艇、Bは2・3号艇）・買い目・掛け金が出ます。ルールの中身は <a href="#rules">07 買い方のルール</a> を参照。</p>
 
     <div class="step">
       <div>
         <div class="step-head"><span class="n">3.1</span><h3>結果カードの見方</h3></div>
         <ul>
-          <li><strong>風</strong> ── 追い風/向かい風/横風 と風速。取得値のicon番号も併記。</li>
-          <li><strong>バケット</strong> ── <span class="mono">A</span>＝追い風3m以上 / <span class="mono">B</span>＝それ以外。買うレーンが決まる。</li>
-          <li><strong>スコア表</strong> ── 2号艇と3号艇の点数。高い方が「強い方」。</li>
-          <li><strong>緑帯／赤帯</strong> ── 「2連単1番人気 X倍 ＞ 3.0倍 → 購入」or 見送り理由（1番人気3.0倍以下／風速6m以上／オッズ未確定）。</li>
-          <li><strong>判定行</strong> ── 3・4レーン（バケットA時は1・2レーン）の買い目・オッズ・掛け金。</li>
+          <li><strong>風</strong> ── 追い風/向かい風/横風（下から・上から）と風速。取得値のicon番号も併記。</li>
+          <li><strong>バケット</strong> ── <span class="mono">A</span>＝追い風2m以上・下からの横風 / <span class="mono">B</span>＝向かい風・追い風1m以下・上からの横風・無風。買うレーンが決まる。</li>
+          <li><strong>スコア表</strong> ── バケットAは2・3・4号艇、Bは2・3号艇の点数。いちばん高いのが「強い方」。</li>
+          <li><strong>緑帯／赤帯</strong> ── 「2連単1番人気 X倍（2.99倍以上）→ 購入」or 見送り理由（風速6m以上／1〜3号艇にF2／1番人気2.99倍未満／オッズ未確定）。</li>
+          <li><strong>判定行</strong> ── 3・4レーン（バケットA時は1・2レーン）の買い目・オッズ・掛け金・何マーチン目か。</li>
+          <li><strong>3連単のレーン</strong>（<span class="tag-3t">3連単</span>・8マーチン目以降）── 下に4点の組番・オッズ・配分（40/25/17.5/17.5%）・金額と合計が出ます。</li>
         </ul>
         <div class="step-head" style="margin-top:22px"><span class="n">3.2</span><h3>記録する</h3></div>
         <ul>
-          <li>買い目はそのままでOK。<strong>現場判断で変えたいときは買い目欄を直接書き換え</strong>（例 <span class="mono">1-3</span> → <span class="mono">2-1</span>）。書き換えるとオッズが即更新。</li>
+          <li>買い目はそのままでOK。<strong>現場判断で変えたいときは買い目欄を直接書き換え</strong>（例 <span class="mono">1-3</span> → <span class="mono">2-1</span>）。書き換えるとオッズが即更新。3連単のレーンは、書き換えた1着-2着で4点が自動で組み直されます。</li>
           <li><strong>買わないレーンは買い目欄を空にする。</strong></li>
-          <li><strong>🔒 が付いたレーンはロック中</strong> ── そのレーンに未確定のレースがあると、次の掛け金が決まらないので記録できません。先に <strong>結果入力</strong> で確定してください。</li>
+          <li><strong>🔒 が付いたレーンはロック中</strong> ── そのレーンに未確定のレースがあると、次の掛け金が決まらないので記録できません（連動ONなら、1・2レーン／3・4レーンは相方の未確定でもロック）。先に <strong>結果入力</strong> で確定してください。</li>
           <li><strong>買い目を記録</strong> をタップ → 収支タブに反映。</li>
           <li>自動が「見送り」のレースは買い目欄が空になり、ボタンが <strong>「このレースを見送りとして記録」</strong> に変わります。タップするとレースログに見送りとして残るだけで、台帳・収支には影響しません。</li>
           <li>見送りレースでもあえて買いたいときは買い目を入力 → ボタンが「買い目を記録（見送り判定を無視）」に変わり、確認のうえ記録できます。</li>
@@ -592,11 +599,11 @@
       <div class="phone-col">
         <div class="phone">
           <div class="bar">競艇マーチン 判定・管理</div>
-          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span><span>設定</span></div>
           <div class="m-card">
             <div class="src">⚡ 08/28 15:52 の事前計算</div>
             <div class="btn action" style="margin-bottom:6px">🔄 最新のオッズ・風で取り直す</div>
-            <div class="kv"><span>風</span><b>追い風 2m</b></div>
+            <div class="kv"><span>風</span><b>追い風 1m</b></div>
             <div class="kv"><span>バケット</span><span class="pill bkt">B</span></div>
           </div>
           <div class="m-card">
@@ -611,7 +618,7 @@
             <h4>判定（買い目は編集可）</h4>
             <div class="prow"><span class="id">3L</span><span class="cmb">1-3</span><span class="od">7.4</span><span>¥1,000</span></div>
             <div class="prow"><span class="id">4L</span><span class="cmb">1-6</span><span class="od">9.9</span><span>¥1,000</span></div>
-            <div style="background:var(--good-soft);color:var(--good);border-radius:8px;padding:6px;text-align:center;font-weight:700;font-size:10px;margin:6px 0">2連単1番人気 3.4倍 ＞ 3.0倍 → 購入</div>
+            <div style="background:var(--good-soft);color:var(--good);border-radius:8px;padding:6px;text-align:center;font-weight:700;font-size:10px;margin:6px 0">2連単1番人気 3.4倍（2.99倍以上）→ 購入</div>
             <div class="btn">買い目を記録</div>
           </div>
         </div>
@@ -630,25 +637,25 @@
         <div class="step-head"><span class="n">4.1</span><h3>1レースずつ確定</h3></div>
         <ul>
           <li>未確定の購入がレース単位で並びます。</li>
-          <li>結果欄に <span class="mono">3-1</span> のように2連単の決まり目を入れて <strong>確定</strong>。<strong>手動でも自動でも、公式の結果ページを取得して照合</strong>します（手入力と公式が食い違えば公式を採用）。</li>
+          <li>結果欄は<strong>空欄のまま確定でOK</strong>（公式の結果ページから自動取得）。公式が取れないときだけ <span class="mono">3-1</span>、3連単を含むレースは <span class="mono">3-1-2</span> のように入力。<strong>手動でも自動でも、公式の結果ページを取得して照合</strong>します（手入力と公式が食い違えば公式を採用）。</li>
           <li>または <strong>未確定をまとめて自動確定</strong> ── 結果ページから自動取得（数十秒。取れなかったレースは「未確定のまま」と表示）。</li>
         </ul>
         <div class="callout do">
           <span class="label">こうなる</span>
-          的中なら払戻（<b>公式払戻金 ÷ 100 × 掛け金</b>）を記録し、そのレーンの台帳を <b>¥1,000</b> に戻す。不的中なら <b>1段階上げる</b>（<a href="#money">08</a>）。<b>買っていないレーンの台帳は動きません。</b>
+          的中なら払戻（<b>公式払戻金 ÷ 100 × その券の掛け金</b>）を記録し、そのレーンの台帳を <b>1段目</b> に戻す（<b>連動ONなら相方のレーンも</b>）。不的中なら <b>1段階上げる</b>（<a href="#money">08</a>）。3連単は4点のどれかが当たれば的中。<b>買っていないレーンの台帳は動きません</b>（連動の相方が的中した場合を除く）。
         </div>
       </div>
       <div class="phone-col">
         <div class="phone">
           <div class="bar">競艇マーチン 判定・管理</div>
-          <div class="tabs"><span>判定</span><span>収支</span><span class="on">結果入力</span></div>
+          <div class="tabs"><span>判定</span><span>収支</span><span class="on">結果入力</span><span>設定</span></div>
           <div class="m-card">
             <h4>未確定レース</h4>
             <div style="border:1px solid var(--line);border-radius:8px;padding:8px">
               <div style="font-weight:700">桐生 3R <span style="color:var(--ink-faint);font-weight:400">08/28 / 周1</span></div>
               <div style="color:var(--ink-faint);margin:3px 0 6px">3L 1-3 ¥1,000 ／ 4L 1-6 ¥1,000</div>
               <div class="row2">
-                <div class="fld">結果 例 3-1</div>
+                <div class="fld">結果 例 3-1（空欄で自動）</div>
                 <div class="btn ghost" style="margin:0;flex:0 0 60px">確定</div>
               </div>
             </div>
@@ -663,14 +670,14 @@
   <!-- ============ STEP 5 ============ -->
   <section id="s5">
     <h2><span class="num">05</span>収支を読む</h2>
-    <p class="section-note">「収支」タブで、この周の状況・本日の明細・通算が一目で分かります。</p>
+    <p class="section-note">「収支」タブで、この周の状況・レーン別の明細・通算が一目で分かります。</p>
 
     <div class="step">
       <div>
         <div class="step-head"><span class="n">5.1</span><h3>4つのブロック</h3></div>
         <ul>
-          <li><strong>この周のレーン別</strong> ── 1〜4レーンごとに 準備金 / 現在のマーチン段・最大マーチン / 次の掛け金 / 連敗 / この周収支。</li>
-          <li><strong>本日の明細</strong> ── 周・レーン・場・R・組番・オッズ・掛け金・払戻・結果。「1〜4レーンそれぞれ今日いくら賭けて何倍でいくら払戻か」がここで分かる。</li>
+          <li><strong>この周のレーン別</strong> ── 1〜4レーンごとに 準備金 / 現在のマーチン段・最大マーチン / 次の掛け金（3連単なら実際の支払額も）/ 連敗 / この周収支。</li>
+          <li><strong>レーン別明細（本日）</strong> ── <span class="mono">1L</span>〜<span class="mono">4L</span> を切り替えて、そのレーンの購入を新しい順に表示。周・場・R・時刻・買い目（3連単は4点の内訳）・掛け金→払戻・収支・段の動き・決まり目と、レーンの小計。</li>
           <li><strong>本日の周回 / 日次</strong> ── 周ごとの収支と、日次収支・日利（収支 ÷ 準備金合計）。</li>
           <li><strong>通算</strong> ── 全期間の賭け金・払戻・収支・的中率。</li>
         </ul>
@@ -682,7 +689,7 @@
       <div class="phone-col">
         <div class="phone">
           <div class="bar">競艇マーチン 判定・管理</div>
-          <div class="tabs"><span>判定</span><span class="on">収支</span><span>結果入力</span></div>
+          <div class="tabs"><span>判定</span><span class="on">収支</span><span>結果入力</span><span>設定</span></div>
           <div class="m-card">
             <h4>周回 1（20260828）</h4>
             <div class="kv"><span>準備金合計</span><b>¥2,000,000</b></div>
@@ -695,8 +702,8 @@
             <h4>この周のレーン別</h4>
             <table>
               <tr><th>L</th><th>準備金</th><th>段</th><th>次</th><th>連敗</th><th>収支</th></tr>
-              <tr><td>3L</td><td>50万</td><td>1/9</td><td>¥1,000</td><td>0</td><td class="pos">+6,400</td></tr>
-              <tr><td>4L</td><td>50万</td><td>2/10</td><td>¥2,000</td><td>1</td><td class="neg">-1,000</td></tr>
+              <tr><td>3L</td><td>50万</td><td>1/14</td><td>¥1,000</td><td>0</td><td class="pos">+6,400</td></tr>
+              <tr><td>4L</td><td>50万</td><td>2/14</td><td>¥2,000</td><td>1</td><td class="neg">-1,000</td></tr>
             </table>
           </div>
         </div>
@@ -715,7 +722,7 @@
         <div class="step-head"><span class="n">6.1</span><h3>2つの選択</h3></div>
         <ul>
           <li><strong>本日終了</strong> ── その日はここまで。</li>
-          <li><strong>2周目を開始</strong> ── 完全に独立した新セッション。準備金を入れ直し、新しい+5%目標、1〜4レーンの段はすべて <span class="mono">¥1,000</span> から。</li>
+          <li><strong>2周目を開始</strong> ── 完全に独立した新セッション。準備金を入れ直し、新しい+5%目標、1〜4レーンの段はすべて1段目（スタート額）から。</li>
         </ul>
         <p class="body-narrow">1日の収支は「全周回の合計」です。2周目で負けても、1周目の +5% はそのまま日次収支に残ります。</p>
         <div class="callout warn">
@@ -726,7 +733,7 @@
       <div class="phone-col">
         <div class="phone">
           <div class="bar">競艇マーチン 判定・管理</div>
-          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span></div>
+          <div class="tabs"><span class="on">判定</span><span>収支</span><span>結果入力</span><span>設定</span></div>
           <div class="m-card">
             <h4>周回 1（20260828）</h4>
             <div class="kv"><span>目標（+5%）</span><b>¥2,100,000</b></div>
@@ -748,26 +755,51 @@
   <!-- ============ RULES ============ -->
   <section id="rules">
     <h2><span class="num">07</span>買い方のルール</h2>
-    <p class="section-note">アプリが自動でやっている判定の中身。すべて <strong>2連単</strong>。順番は「大前提 → スコア → 風でレーン」。</p>
+    <p class="section-note">アプリが自動でやっている判定の中身。順番は「大前提 → 風でレーン → スコアで強い方」。基本は <strong>2連単</strong>、8マーチン目以降だけ3連単（<a href="#money">08</a>）。</p>
 
     <h3>① 大前提（まずここを見る。1つでも当てはまればレース全体を見送り）</h3>
     <div class="callout do">
-      <span class="label">見送り条件 1 ── オッズ</span>
-      <b>2連単1番人気（最低オッズの組）が 3.0倍以下</b> → 見送り（3.0倍ちょうども不可）。1番人気＞3.0倍なら他の全組も＞3.0倍。
+      <span class="label">見送り条件 1 ── 風</span>
+      <b>風速 6m以上</b> → 見送り（風向・バケット問わず）。
     </div>
     <div class="callout do">
-      <span class="label">見送り条件 2 ── 風</span>
-      <b>風速 6m以上</b> → 見送り（風向・バケット問わず）。しきい値は「設定」シートで変更可。
+      <span class="label">見送り条件 2 ── フライング</span>
+      <b>1〜3号艇に今期フライング2回（F2）以上の選手がいる</b> → 見送り（出走表の F数）。
+    </div>
+    <div class="callout do">
+      <span class="label">見送り条件 3 ── オッズ</span>
+      <b>2連単1番人気（最低オッズの組）が 2.99倍未満</b> → 見送り（2.9倍以下は見送り、3.0倍は購入）。1番人気が2.99倍以上なら他の全組も2.99倍以上。
+    </div>
+    <p class="body-narrow" style="color:var(--ink-faint);font-size:13px">オッズ下限・風速上限は設定タブ（または「設定」シート）で変更できます。</p>
+
+    <h3 style="margin-top:28px">② 風でバケットを決める → 買うレーンが決まる</h3>
+    <div class="grid2" style="margin-top:10px">
+      <div class="rcard">
+        <h3 style="color:var(--accent)">バケット A</h3>
+        <p style="font-size:14px"><strong>追い風 2m以上</strong> ／ <strong>下からの横風</strong>（強さ問わず）</p>
+        <p style="font-size:14px;margin-top:8px"><strong>1レーン</strong> <span class="mono">強い方(2/3/4)-1</span><br><strong>2レーン</strong> 2連単1番人気</p>
+      </div>
+      <div class="rcard">
+        <h3 style="color:var(--accent)">バケット B</h3>
+        <p style="font-size:14px"><strong>向かい風</strong> ／ <strong>追い風 1m以下</strong> ／ <strong>上からの横風</strong>（強さ問わず）／ 無風</p>
+        <p style="font-size:14px;margin-top:8px"><strong>3レーン</strong> <span class="mono">1-強い方(2/3)</span><br><strong>4レーン</strong> 2連単3番人気</p>
+      </div>
+    </div>
+    <p class="body-narrow" style="margin-top:12px">大前提を通れば、そのバケットの2レーンを両方買う（買い目は現場判断で編集可）。</p>
+    <div class="callout tip">
+      <span class="label">風向アイコン</span>
+      矢印は風が吹いていく向き。<b>右＝追い風</b>、左＝向かい風、<b>上向き＝下から吹く横風</b>、下向き＝上から吹く横風。矢印が明らかにおかしいときだけ判定画面で手動上書き。
     </div>
 
-    <h3 style="margin-top:28px">② 選手評価スコア ── 2号艇と3号艇のどちらを「強い方」にするか</h3>
+    <h3 style="margin-top:28px">③ 選手評価スコア ── 「強い方」を決める</h3>
+    <p class="body-narrow">比べる艇は <strong>バケットA＝2・3・4号艇</strong>、<strong>バケットB＝2・3号艇</strong>。</p>
     <div class="scroll-x">
       <table class="ref">
         <thead><tr><th>項目</th><th>内容</th><th class="n">加点</th></tr></thead>
         <tbody>
           <tr>
             <td>① 今節成績</td>
-            <td>今節、<strong>進入1〜3コースから1着or2着に来た回数</strong>が、1〜3号艇の中で……<br>最多／2番目</td>
+            <td>今節、<strong>進入1〜3コースから1着or2着に来た回数</strong>が、<strong>Aは1〜4号艇・Bは1〜3号艇</strong>の中で……<br>最多／2番目</td>
             <td class="n">+1 ／ +0.5</td>
           </tr>
           <tr>
@@ -783,50 +815,38 @@
         </tbody>
       </table>
     </div>
-    <p class="body-narrow">合計が高い方が「<strong>強い方</strong>」。<strong>合計が同じならイン（＝2号艇）を優先。</strong>判定結果カードの「2号艇 vs 3号艇 スコア」表に、回数・勝率・各点・合計が出ます。</p>
-
-    <h3 style="margin-top:28px">③ 風でバケットを決める → 買うレーンが決まる</h3>
-    <div class="grid2" style="margin-top:10px">
-      <div class="rcard">
-        <h3 style="color:var(--accent)">バケット A</h3>
-        <p style="font-size:14px"><strong>追い風かつ風速3m以上</strong>（6m未満）</p>
-        <p style="font-size:14px;margin-top:8px"><strong>1レーン</strong> <span class="mono">強い方(2/3)-1</span><br><strong>2レーン</strong> 2連単1番人気</p>
-      </div>
-      <div class="rcard">
-        <h3 style="color:var(--accent)">バケット B</h3>
-        <p style="font-size:14px"><strong>向かい風 / 追い風2m以下 / 横風 / 無風</strong></p>
-        <p style="font-size:14px;margin-top:8px"><strong>3レーン</strong> <span class="mono">1-強い方(2/3)</span><br><strong>4レーン</strong> 2連単3番人気</p>
-      </div>
-    </div>
-    <p class="body-narrow" style="margin-top:12px">大前提を通れば、そのバケットの2レーンを両方買う（買い目は現場判断で編集可）。</p>
-
-    <div class="callout tip">
-      <span class="label">風向アイコン</span>
-      <b>右矢印＝追い風</b>、左矢印＝向かい風、上下＝横風。矢印が明らかにおかしいときだけ判定画面で手動上書き。
-    </div>
+    <p class="body-narrow">合計がいちばん高い艇が「<strong>強い方</strong>」。<strong>合計が同じならイン（若い番号）を優先。</strong>判定結果カードのスコア表に、回数・勝率・各点・合計が出ます。</p>
   </section>
 
   <!-- ============ MONEY ============ -->
   <section id="money">
     <h2><span class="num">08</span>資金管理の仕組み</h2>
-    <p class="section-note">マーチンゲールの段は <strong>1〜4レーンで完全に独立</strong>。各レーンは自分の勝敗だけで段が上下します。</p>
+    <p class="section-note">マーチンゲールの段はレーンごとに持ちます。<strong>レーン連動ON</strong>（既定）のときは、1・2レーン／3・4レーンが「どちらかの的中で両方リセット」になります。</p>
 
-    <h3>掛け金の段</h3>
+    <h3>掛け金の段（スタート額 ¥1,000 の場合）</h3>
+    <p class="body-narrow" style="font-size:14px">1段目＝スタート額、2段目＝1段目×2、3段目以降＝<strong>直近2段の和</strong>。スタート額は設定タブで変更できます。</p>
     <div class="ladder">
-      <span>1,000</span><span>2,000</span><span>3,000</span><span>5,000</span><span>8,000</span><span>13,000</span><span>21,000</span><span>34,000</span><span>55,000</span><span>89,000</span><span>144,000</span>
+      <span>1,000</span><span>2,000</span><span>3,000</span><span>5,000</span><span>8,000</span><span>13,000</span><span>21,000</span><span>34,000</span><span>55,000</span><span>89,000</span><span>144,000</span><span>233,000</span><span>377,000</span><span>610,000</span>
     </div>
     <div class="scroll-x">
       <table class="ref">
         <thead><tr><th>そのレーンが</th><th>台帳の動き</th></tr></thead>
         <tbody>
-          <tr><td><strong>的中</strong>（その組が2連単の結果と一致）</td><td>¥1,000（1マーチン目）に戻す</td></tr>
-          <tr><td><strong>不的中</strong></td><td>1段階上げる</td></tr>
-          <tr><td><strong>最大マーチンで不的中</strong><br>（1・2・4レーン=10、3レーン=9）</td><td><strong>直近の掛け金 ÷ 10 に一番近い段</strong>から再開<br>例: 89,000 で負け → 89,000÷10 = 8,900 → 一番近い <strong>8,000</strong> から</td></tr>
-          <tr><td>そのレースで買っていない</td><td>変化なし</td></tr>
+          <tr><td><strong>的中</strong></td><td>1段目（スタート額）に戻す。<br><strong>連動ON</strong>なら相方のレーンも1段目へ（1・2レーン／3・4レーン）</td></tr>
+          <tr><td><strong>不的中</strong></td><td>1段階上げる（相方が的中していなければ）</td></tr>
+          <tr><td><strong>最大マーチンで不的中</strong><br>（既定: 全レーン14）</td><td><strong>直近の掛け金 ÷ 10 に一番近い段</strong>から再開<br>例: 610,000 で負け → 61,000 → 一番近い <strong>55,000</strong>（9段目）から</td></tr>
+          <tr><td>そのレースで買っていない</td><td>変化なし（連動の相方が的中したときだけ1段目へ）</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="body-narrow" style="color:var(--ink-faint);font-size:13px">最大マーチン数は「設定」シートでレーンごとに変更できます。</p>
+
+    <h3 style="margin-top:26px">8マーチン目以降は3連単</h3>
+    <ul style="padding-left:22px" class="body-narrow">
+      <li style="margin-bottom:8px">判定は通常どおり。そのレーンの2連単の買い目（例 1レーン <span class="mono">2-1</span>）を1着-2着に固定し、<span class="mono">2-1-X</span> を <strong>人気順に4点</strong> 買う。</li>
+      <li style="margin-bottom:8px">その段の掛け金を <strong>1番人気 40% ／ 2番人気 25% ／ 3番人気 17.5% ／ 4番人気 17.5%</strong> に配分し、<strong>各100円単位で四捨五入</strong>。</li>
+      <li style="margin-bottom:8px">例: 8段目 ¥34,000 → 13,600 / 8,500 / 6,000 / 6,000（実際の支払い <b>¥34,100</b>）。<strong>次の段は本来の額（¥55,000）</strong>で計算し、端数は持ち越さない。</li>
+      <li>4点のどれかが当たれば <strong>的中＝リセット</strong>。開始マーチン（既定 8）は設定で変更可。</li>
+    </ul>
 
     <h3 style="margin-top:26px">周回（セッション）</h3>
     <ul style="padding-left:22px" class="body-narrow">
@@ -836,9 +856,17 @@
       <li><strong>1日の収支</strong> ── その日の全周回の合計。日利 ＝ 収支 ÷ 準備金合計。</li>
     </ul>
 
+    <h3 style="margin-top:26px">設定タブで変えられること（チーム全員に即反映）</h3>
+    <ul style="padding-left:22px" class="body-narrow">
+      <li style="margin-bottom:6px">オッズ下限・風速上限（見送りのしきい値）</li>
+      <li style="margin-bottom:6px">スタート額・最大マーチン（レーンごと）・レーン連動 ON/OFF・3連単開始マーチン</li>
+      <li>準備金デフォルト・利益目標(%)</li>
+    </ul>
+    <p class="body-narrow" style="color:var(--ink-faint);font-size:13px">スタート額を途中で変えると、各レーンの段はそのまま・金額だけ新しいスタート額で計算し直されます。</p>
+
     <div class="callout warn">
       <span class="label">リスク</span>
-      1レーンが最大マーチンまで連敗したときの累計は、1・2・4レーン（最大10）で <b>¥231,000</b>、3レーン（最大9）で <b>¥142,000</b>。最大段の先は 1/10 リセットで循環します。
+      1レーンが最大マーチン（14）まで連敗したときの累計は、スタート額 ¥1,000 で <b>¥1,595,000</b>。準備金が足りない場合は収支タブに「準備金はN段まで」と出ます（例: 1レーン20万円なら9段目まで）。最大段の先は 1/10 リセットで循環します。
     </div>
   </section>
 
@@ -870,12 +898,22 @@
 
     <details>
       <summary>風向が実際と逆に見える</summary>
-      <div class="ans">判定画面の <strong>風向の手動上書き</strong> で「追い風／向かい風／横風」と風速を指定して取り直せます。恒常的にずれているなら管理者へ（<span class="mono">Logic.gs</span> の設定を入れ替え）。</div>
+      <div class="ans">判定画面の <strong>風向の手動上書き</strong> で「追い風／向かい風／横風（下から・上から）／無風」と風速を指定して取り直せます。恒常的にずれているなら管理者へ（<span class="mono">Logic.gs</span> の設定を入れ替え）。</div>
     </details>
 
     <details>
       <summary>準備金を間違えて入れた</summary>
       <div class="ans">セッション欄の <strong>準備金を修正</strong>（進行中の周のみ）。段や記録済みのベットは変わらず、+5%目標だけ再計算されます。</div>
+    </details>
+
+    <details>
+      <summary>3連単の支払額が掛け金とちょっと違う</summary>
+      <div class="ans">4点それぞれを100円単位に四捨五入しているためです（例 ¥34,000 → 実際 ¥34,100）。次の段の掛け金は本来の額で計算されるので、ずれは持ち越されません。</div>
+    </details>
+
+    <details>
+      <summary>片方のレーンしか買っていないのに、もう片方もリセットされた</summary>
+      <div class="ans">レーン連動ON のときの仕様です（1・2レーン／3・4レーンはどちらかの的中で両方1段目へ）。独立させたいときは設定タブで <strong>レーン連動 OFF</strong>。</div>
     </details>
 
     <details>
